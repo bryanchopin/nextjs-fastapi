@@ -7,23 +7,7 @@ export default function Home() {
   const [messages, setMessages] = useState<string[]>([]);
   const [inputMessage, setInputMessage] = useState('');
 
-  // useEffect(() => {
-  //   const socket = new WebSocket("ws://localhost:8000/ws");
 
-  //   socket.onmessage = (event) => {
-  //     const receivedMessage = event.data;
-  //     setMessages((prevMessages) => [...prevMessages, receivedMessage]);
-  //   };
-
-  //   socket.onclose = (event) => {
-  //     console.log("Conexión WebSocket cerrada:", event);
-  //   };
-
-  //   // Limpiar la conexión WebSocket cuando el componente se desmonta
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
 
   useEffect(() => {
     // const socket = new WebSocket("ws://localhost:8000/ws");
@@ -99,3 +83,22 @@ export default function Home() {
     </div>
   );
 }
+
+
+  // useEffect(() => {
+  //   const socket = new WebSocket("ws://localhost:8000/ws");
+
+  //   socket.onmessage = (event) => {
+  //     const receivedMessage = event.data;
+  //     setMessages((prevMessages) => [...prevMessages, receivedMessage]);
+  //   };
+
+  //   socket.onclose = (event) => {
+  //     console.log("Conexión WebSocket cerrada:", event);
+  //   };
+
+  //   // Limpiar la conexión WebSocket cuando el componente se desmonta
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, []);
