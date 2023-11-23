@@ -48,7 +48,9 @@ export default function Home() {
     };
   }, []);
   const sendMessage = () => {
-    const socket = new WebSocket("ws://localhost:8000/ws");
+    // const socket = new WebSocket("ws://localhost:8000/ws");
+    const socket = new WebSocket("wss://nextjs-fastapi-amber.vercel.app/ws");
+
 
     // Esperar a que la conexión esté abierta antes de enviar el mensaje
     socket.onopen = () => {
