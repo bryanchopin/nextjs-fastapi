@@ -2,12 +2,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Pusher from 'pusher-js';
 
 export default function Home() {
   const [messages, setMessages] = useState<string[]>([]);
   const [inputMessage, setInputMessage] = useState('');
 
+  useEffect(() => {
+    const pusher = new Pusher('54b9980aed66a1f270b8', {
+      cluster: 'us3'
+    });
 
+    const channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data: any) {
+      alert(JSON.stringify(data));
+    });
+  });
 
   useEffect(() => {
     // const socket = new WebSocket("ws://localhost:8000/ws");
