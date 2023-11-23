@@ -42,6 +42,7 @@ export default function Home() {
 
     socket.onclose = (event) => {
       console.log("Conexión WebSocket cerrada:", event);
+      console.log("Razón del cierre:", event.reason);
     };
 
     // Limpiar la conexión WebSocket cuando el componente se desmonta
