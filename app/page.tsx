@@ -26,7 +26,9 @@ export default function Home() {
   // }, []);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/ws");
+    // const socket = new WebSocket("ws://localhost:8000/ws");
+    const socket = new WebSocket("wss://nextjs-fastapi-amber.vercel.app/ws");
+
 
     // Manejar eventos
     socket.onopen = (event) => {
