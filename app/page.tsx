@@ -1,6 +1,5 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
 
 export default function Home() {
@@ -9,16 +8,15 @@ export default function Home() {
 
   useEffect(() => {
     const pusher = new Pusher('54b9980aed66a1f270b8', {
-      cluster: 'us3'
+      cluster: 'us3',
     });
 
     const channel = pusher.subscribe('my-channel');
 
-    channel.bind('my-event', function(data : any) {
+    channel.bind('my-event', function (data: any) {
+      console.log('Pusher message received:', data.message);
       setMessages((prevMessages) => [...prevMessages, data.message]);
     });
-
-    console.log('Pusher connected');
 
     return () => {
       pusher.unsubscribe('my-channel');
@@ -26,40 +24,19 @@ export default function Home() {
     };
   }, []);
 
-  // const sendMessage = () => {
-  //   // Enviar el mensaje al servidor a través del WebSocket
-  //   const pusher = new Pusher('54b9980aed66a1f270b8', {
-  //     cluster: 'us3'
-  //   });
-
-  //   const channel = pusher.subscribe('my-channel');
-  //   channel.trigger('my-event', { message: inputMessage });
-
-  //   // Agregar el mensaje al estado local para que aparezca en el frontend
-  //   setMessages((prevMessages) => [...prevMessages, inputMessage]);
-
-  //   // Limpiar el campo de entrada después de enviar el mensaje
-  //   setInputMessage('');
-  // };
-
   const sendMessage = () => {
-    // Enviar el mensaje al servidor a través del WebSocket
-    const pusher = new Pusher('54b9980aed66a1f270b8', {
-      cluster: 'us3'
+    // Enviar el mensaje al servidor a través de la ruta FastAPI "/send_message"
+    fetch('http://localhost:8000/send_message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: inputMessage }),
     });
-  
-    const channel = pusher.subscribe('my-channel');
-  
-    // Modificar el nombre del evento para seguir la convención de Pusher
-    channel.trigger('client-my-event', { message: inputMessage });
-  
-    // Agregar el mensaje al estado local para que aparezca en el frontend
-    setMessages((prevMessages) => [...prevMessages, inputMessage]);
-  
+
     // Limpiar el campo de entrada después de enviar el mensaje
     setInputMessage('');
   };
-  
 
   return (
     <div className="flex flex-col items-center justify-center p-24">
@@ -68,7 +45,7 @@ export default function Home() {
         <div className="flex flex-col max-w-[30ch] text-sm">
           <div
             className="mb-2 overflow-auto max-h-40"
-            style={{ borderBottom: "1px solid #ccc" }}
+            style={{ borderBottom: '1px solid #ccc' }}
           >
             {messages.map((message, index) => (
               <div key={index}>{message}</div>
