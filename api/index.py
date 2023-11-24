@@ -7,7 +7,7 @@ app = FastAPI()
 # Configura CORS para permitir solicitudes desde todos los orígenes
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Puedes especificar dominios específicos en lugar de "*" para mayor seguridad
+    allow_origins=["https://nextjs-fastapi-amber.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
