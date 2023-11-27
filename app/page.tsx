@@ -26,7 +26,8 @@ export default function Home() {
 
   const sendMessage = () => {
     // Enviar el mensaje al servidor a través de la ruta FastAPI "/send_message"
-    fetch('https://nextjs-fastapi-amber.vercel.app/send_message', {
+    // fetch('https://nextjs-fastapi-amber.vercel.app/send_message', {
+    fetch('http://localhost:3000/send_message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
